@@ -3,7 +3,9 @@ MarqueeView
 
 名称：垂直滚动的公告栏
 -----------
-
+效果截图
+-----------
+![image](https://github.com/tiancuicui/MarqueeView/blob/master/sample/src/main/res/drawable/screenshot.png)
 
 使用
 -----------
