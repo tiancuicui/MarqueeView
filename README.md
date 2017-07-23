@@ -5,7 +5,7 @@ MarqueeView
 -----------
 效果截图
 -----------
-![image](https://github.com/tiancuicui/MarqueeView/blob/master/sample/src/main/res/drawable/screenshot.png)
+![image](https://github.com/tiancuicui/MarqueeView/blob/master/screenshot/screenshot.gif)
 
 使用
 -----------
