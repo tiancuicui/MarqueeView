@@ -92,22 +92,4 @@ marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
     }
 });
 ```
-
-重影问题可参考以下解决方案
------------
-
-```Java
-@Override
-public void onStart() {
-    super.onStart(); 
-    marqueeView.startFlipping();
-}
-
-@Override
-public void onStop() {
-    super.onStop();
-    marqueeView.stopFlipping();
-}
-```
-
 有任何问题请联系我(email:tiancuicui0626@163.com 或 qq: 2820218929),欢迎issue,pr!<br>
