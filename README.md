@@ -20,13 +20,38 @@ MarqueeView
 属性
 -----------
 
-各个属性代表的含义:<br><br>
-mvAnimDuration	  一行文字动画执行时间<br>
-mvInterval	  两行文字翻页时间间隔<br>
-mvTextSize	  文字大小<br>
-mvTextColor	  文字颜色<br>
-mvGravity	  文字位置:left、center、right<br>
-mvSingleLine	  单行设置<br>
+<div>
+    <table border="0">
+	  <tr>
+	    <th>自定义属性</th>
+	    <th>含义</th>
+	  </tr>
+	  <tr>
+	    <td>mvAnimDuration</td>
+	    <td>一行文字动画执行时间</td>
+	  </tr>
+     <tr>
+	    <td>mvInterval</td>
+	    <td>两行文字翻页时间间隔</td>
+	  </tr>
+     <tr>
+	    <td>mvTextSize</td>
+	    <td>文字大小</td>
+	  </tr>
+     <tr>
+	    <td>mvTextColor</td>
+	    <td>文字颜色</td>
+	  </tr>
+     <tr>
+	    <td>mvGravity</td>
+	    <td>文字显示的位置:left、center、right</td>
+	  </tr>
+     <tr>
+	    <td>mvSingleLine</td>
+	    <td>单行设置: true、false</td>
+	  </tr>
+    </table>
+</div>
 
 XML
 -----------
