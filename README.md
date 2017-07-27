@@ -13,7 +13,7 @@ MarqueeView
 
 ```Java
   	dependencies {  
-              compile 'com.tiancuicui:marqueeview:1.0.2'
+              compile 'com.tiancuicui:marqueeview:1.0.3'
   	}
 ```
     
