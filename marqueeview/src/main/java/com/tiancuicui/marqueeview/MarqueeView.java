@@ -11,19 +11,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * created by tiancuicui on 2017/07/20
  * 垂直滚动的公告栏view
  */
-public class MarqueeView extends ViewFlipper {
+public class MarqueeView<T> extends ViewFlipper {
 
     private Context context;
-    private List<? extends CharSequence> notices;
+    private DataSet<T> dataSet;
     private boolean isSetAnimDuration = false;
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener<T> onItemClickListener;
 
     private int interval = 2000;
     private int animDuration = 500;
@@ -41,10 +40,6 @@ public class MarqueeView extends ViewFlipper {
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         this.context = context;
-        if (notices == null) {
-            notices = new ArrayList<>();
-        }
-
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.MarqueeViewStyle, defStyleAttr, 0);
         interval = typedArray.getInteger(R.styleable.MarqueeViewStyle_mvInterval, interval);
         isSetAnimDuration = typedArray.hasValue(R.styleable.MarqueeViewStyle_mvAnimDuration);
@@ -70,32 +65,38 @@ public class MarqueeView extends ViewFlipper {
     }
 
     // 根据公告字符串列表启动轮播
-    public void startWithList(List<? extends CharSequence> notices) {
-        setNotices(notices);
+    public void startWithList(List<T> notices) {
+        dataSet = new DataSet<>(notices);
+        start();
+    }
+
+    public void startWithList(List<T> notices, DataSet.Formatter<T> formatter) {
+        dataSet = new DataSet<>(notices);
+        dataSet.setFormatter(formatter);
         start();
     }
 
     // 启动轮播
-    public boolean start() {
-        if (notices == null || notices.size() == 0) return false;
+    private boolean start() {
+        if (dataSet == null || dataSet.dataSize() == 0) return false;
         removeAllViews();
         resetAnimation();
 
-        for (int i = 0; i < notices.size(); i++) {
-            final TextView textView = createTextView(notices.get(i), i);
+        for (int i = 0; i < dataSet.dataSize(); i++) {
+            final TextView textView = createTextView(dataSet.format(i), i);
             final int finalI = i;
             textView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(finalI, textView);
+                        onItemClickListener.onItemClick(finalI, dataSet.getDataByPosition(finalI));
                     }
                 }
             });
             addView(textView);
         }
 
-        if (notices.size() > 1) {
+        if (dataSet.dataSize() > 1) {
             startFlipping();
         } else {
             stopFlipping();
@@ -134,20 +135,16 @@ public class MarqueeView extends ViewFlipper {
         return (int) getCurrentView().getTag();
     }
 
-    public List<? extends CharSequence> getNotices() {
-        return notices;
+    public List<T> getNotices() {
+        return dataSet.getData();
     }
 
-    public void setNotices(List<? extends CharSequence> notices) {
-        this.notices = notices;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position, TextView textView);
+    public interface OnItemClickListener<T> {
+        void onItemClick(int position, T notice);
     }
 
 }
