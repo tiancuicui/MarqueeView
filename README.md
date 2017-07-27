@@ -71,7 +71,7 @@ XML
 -----------
 
 ```Java
-MarqueeView marqueeView = (MarqueeView) findViewById(R.id.mv_marqueeview);
+MarqueeView marqueeView = (MarqueeView<String>) findViewById(R.id.mv_marqueeview);
 
 List<String> info = new ArrayList<>();
 info.add("this is content No.1");
@@ -81,14 +81,31 @@ info.add("this is content No.4");
 marqueeView.startWithList(info);
 ```
 
+或使用自定义的模型
+
+```java
+MarqueeView marqueeView = (MarqueeView<NoticeModel>) findViewById(R.id.mv_marqueeview);
+list.add(new NoticeModel("1", "一顶遮阳帽, 给你夏日专属的美好~"));
+list.add(new NoticeModel("2", "夏日轻亲装, 互动送好礼~"));
+list.add(new NoticeModel("3", "好吃, 比外卖更快~"));
+
+marqueeViewSecond.startWithList(list, new DataSet.Formatter<NoticeModel>() {
+    @Override
+    public String format(NoticeModel noticeModel) {
+    		// 格式化要是显示的内容
+		return String.format(Locale.CHINA, "公告%s %s", noticeModel.getId(), noticeModel.getDesc());
+    }
+});
+```
+
 设置事件监听
 -----------
 
 ```Java
-marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener<NoticeModel>() {
     @Override
-    public void onItemClick(int position, TextView textView) {
-        Toast.makeText(getApplicationContext(), String.valueOf(marqueeView.getPosition()) + ". " + textView.getText(), Toast.LENGTH_SHORT).show();
+    public void onItemClick(int position, NoticeModel notice) {
+        Toast.makeText(getApplicationContext(), notice.getDesc(), Toast.LENGTH_SHORT).show();
     }
 });
 ```
