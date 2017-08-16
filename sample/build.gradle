@@ -29,6 +29,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    //  compile 'com.tiancuicui:marqueeview:1.0.3'
+    //  compile 'com.tiancuicui:marqueeview:1.0.4'
     compile project(':marqueeview')
 }
